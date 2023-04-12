@@ -1,0 +1,52 @@
+<template>
+    <nav>
+        <ul class="flex items-center space-x-6">
+            <li>
+                <NavLink
+                    href="/"
+                    :active="$page.component === 'Coupons'"
+                    class="text-yellow-500 text-lg"
+                    >Coupons</NavLink
+                >
+            </li>
+            <li>
+                <NavLink
+                    :href="route('cart-index')"
+                    as="button"
+                    class="text-yellow-500 text-6xl relative flex"
+                >
+                    <span
+                        class="absolute inset-0 object-right-top -mr-6"
+                        v-if="$page.props.cartCount > 0"
+                    >
+                        <div
+                            class="absolute leading-tight rounded-full bg-red-700 p-1 w-6 h-6 -top-3 right-2 text-white text-sm flex justify-center items-center text-center font-mono"
+                        >
+                            {{ $page.props.cartCount }}
+                        </div>
+                    </span>
+                    <Icon name="cart" class="w-6 h-6 fill-current"></Icon>
+                </NavLink>
+            </li>
+            <li>
+                <YellowButton href="/register" method="get" as="href"
+                    >Register</YellowButton
+                >
+            </li>
+            <li>
+                <YellowButton href="/login" method="get" as="href"
+                    >Login</YellowButton
+                >
+            </li>
+        </ul>
+    </nav>
+</template>
+
+<script>
+import NavLink from "./NavLink";
+import YellowButton from "./YellowButton";
+
+export default {
+    components: { NavLink, YellowButton },
+};
+</script>
