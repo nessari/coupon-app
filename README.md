@@ -1,39 +1,60 @@
-# Alkalmazás telepítése lokális fejlesztéshez
+# Coupon sharing app
 
-Laravel és Vue függőségek telepítése a megfelelő composer.json és packgae.json fájlok alapján.
+Online credit card payment using Stripe
+
+Search by geolocation with Google Maps
+
+## Setting up the project for local development
+
+*This project requires a Stripe account and is written in Laravel version 9.11, Inertia version 0.5. and PHP version 8.0.2. Will update soon.*
+
+### Install dependencies
+
 ```
 composer install
 npm install
 ```
 
-Enviroment fájl létrehozása és az applikáció kulcs generálása.
+### Copy the environment example into .env file
+
 ```
 cp .env.example .env
-artisan key:generate
 ```
 
-Az alkalmazás helyes működéséhez a .env fájlban szükséges még megadni a Stripe privát és titkos kulcsait, illetve a Google API kulcsot.
-Ahhoz, hogy ezeket meg tudjuk adni szükség van felhasználói fiókra a Stripe és a Google Maps platformokon. Ha ezek megvannak, a platformok dokumentációja alapján könnyen generálhatunk kulcsokat:
-- https://support.stripe.com/questions/locate-api-keys-in-the-dashboard
-- https://developers.google.com/maps/get-started
+### Generate the applicaton key in the environment file
 
-A kulcsokat a megfelelő környezeti változókba másoljuk be:
 ```
-STRIPE_KEY=
-STRIPE_SECRET_KEY=
-GOOGLE_MAPS_KEY=
+php artisan key:generate
 ```
 
-Adatbázis táblák létrehozása és feltöltése teszt adatokkal.
+### Define Stripe keys in .env file
+
+Help to find Stripe keys: https://support.stripe.com/questions/locate-api-keys-in-the-dashboard
+
 ```
-artisan migrate
-artisan db:seed
+STRIPE_KEY=<your_public_key>
+STRIPE_SECRET=<your_private_key>
 ```
 
-PHP szerver indítása és JavaScript kód fordítása.
+### Define Google Maps key in .env file
+
+Help to generate Google API key: https://developers.google.com/maps/get-started#api-key
+
 ```
-php artisan serve
+GOOGLE_MAPS_KEY=<your_google_api_key>
+```
+
+### Run migrations and seeders
+
+```
+php artisan migrate
+php artisan db:seed
+```
+
+### Compile JavaScript and start PHP server
+
+```
 npm run dev
+php artisan serve
 ```
-
-Ha mindent jól csináltunk, akkor az alkalmazást a `127.0.0.1:8000` címen érhetjük el a böngészőből.
+The HTTP server will listen to port 8000 on localhost.
